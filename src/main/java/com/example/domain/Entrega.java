@@ -3,6 +3,7 @@ package com.example;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+// foi feito validação centralizada no construtor para garantir integridade do objeto e evitar estados inválidos
 public final class Entrega {
     private final String endereco;
     private final BigDecimal peso;
@@ -12,7 +13,7 @@ public final class Entrega {
     public Entrega(String endereco, double peso, String destinatario, TipoFrete tipoFrete) {
         validate(endereco, peso, destinatario, tipoFrete);
         this.endereco = endereco.trim();
-        this.peso = BigDecimal.valueOf(peso);
+        this.peso = BigDecimal.valueOf(peso); //Substituição do double como unidade de peso
         this.destinatario = destinatario.trim();
         this.tipoFrete = tipoFrete;
     }
@@ -48,6 +49,7 @@ public final class Entrega {
         return tipoFrete; 
     }
 
+    //método imutável para ajustar peso, evitando alteração direta do estado da Entrega
     public Entrega withAdjustedPeso(double novoPeso) {
         return new Entrega(this.endereco, novoPeso, this.destinatario, this.tipoFrete);
     }
